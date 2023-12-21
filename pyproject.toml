@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "notion-to-md"
+version = "0.1.0"
+description = ""
+authors = ["Ilya Grigoryev <iliagrigoryev@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "notion_to_md"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.3"
+loguru = "^0.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
