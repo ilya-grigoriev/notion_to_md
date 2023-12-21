@@ -4,7 +4,8 @@ from typing import Sequence
 
 @dataclass
 class FileInfo:
-    """
+    """Dataclass with file info.
+
     Attrs:
         lines: Sequence[str]
             Content of file with title inside.
