@@ -17,3 +17,11 @@ venv/bin/activate
 pip install .
 chmod +x converting_notion_to_md
 ```
+
+# FAQ
+
+- For help:
+
+```bash
+./converting_notion_to_md -h
+```
