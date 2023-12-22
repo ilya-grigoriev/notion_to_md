@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Sequence
 
 
 def check_file_content(filepath: Path, content: str) -> bool:
