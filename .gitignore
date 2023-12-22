@@ -2,3 +2,6 @@ __pycache__/
 .pytest_cache/
 .venv/
 .hypothesis/
+
+tests/*
+!tests/test_folder/
