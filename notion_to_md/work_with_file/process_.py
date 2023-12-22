@@ -23,8 +23,16 @@ def process_md(filepath: Path) -> None:
 def process_img(filepath: Path) -> None:
     dirpath = filepath.parent.parent   # Path of overfolder
     data_path = dirpath / Path('data')
+    full_path = data_path / filepath.name
 
     if data_path.exists() is not True:
         Path(data_path).mkdir()
 
-    shutil.copy(filepath, data_path)
+    if full_path.exists() is not True:
+        shutil.copy(filepath, data_path)
+    else:
+        filepath_without_ext = str(filepath).rsplit('.', maxsplit=1)[0]
+        new_path = filepath_without_ext + '1' + filepath.suffix
+
+        filepath.rename(new_path)
+        process_img(Path(new_path))
