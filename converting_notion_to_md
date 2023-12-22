@@ -1,19 +1,36 @@
 #!/usr/bin/env python
+from pathlib import Path
+
 from notion_to_md.cli import parse_args
 from notion_to_md.data import FileInfo
 from notion_to_md.file import File
-from notion_to_md.work_with_dir.get_ import get_dir_by_path
 
-if __name__ == '__main__':
-    args = parse_args()
-    filepath = args.path
 
-    dirpath = get_dir_by_path(filepath)
-    lines = tuple(File.read(filepath))
+def main(dirpath: Path) -> None:
+    for path in dirpath.iterdir():
+        if path.suffix == '.md':
+            process_filepath(path)
+        elif path.is_dir():
+            main(path)
+
+
+def process_filepath(filepath: Path) -> None:
+    dirpath = filepath.parent
+    lines = tuple(line for line in File.read(filepath) if line)
     fileinfo = FileInfo(dirpath, filepath, '', lines)
+
     heading = File.get_heading(fileinfo)
 
     if heading:
         fileinfo.heading = heading
 
         File.copy(fileinfo)
+
+        filepath.unlink()
+
+
+if __name__ == '__main__':
+    args = parse_args()
+    dirpath = args.path
+
+    main(Path(dirpath))
