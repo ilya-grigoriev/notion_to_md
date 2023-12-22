@@ -2,8 +2,6 @@
 from pathlib import Path
 
 from notion_to_md.cli import parse_args
-from notion_to_md.data import FileInfo
-from notion_to_md.file import File
 
 
 def main(dirpath: Path) -> None:
@@ -14,23 +12,10 @@ def main(dirpath: Path) -> None:
             main(path)
 
 
-def process_filepath(filepath: Path) -> None:
-    dirpath = filepath.parent
-    lines = tuple(line for line in File.read(filepath) if line)
-    fileinfo = FileInfo(dirpath, filepath, '', lines)
-
-    heading = File.get_heading(fileinfo)
-
-    if heading:
-        fileinfo.heading = heading
-
-        File.copy(fileinfo)
-
-        filepath.unlink()
-
-
 if __name__ == '__main__':
     args = parse_args()
     dirpath = args.path
+
+    from notion_to_md.work_with_file.process_ import process_filepath
 
     main(Path(dirpath))
