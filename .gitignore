@@ -3,5 +3,6 @@ __pycache__/
 .venv/
 .hypothesis/
 
-tests/*
+tests/**
+!tests/*.py
 !tests/test_folder/
