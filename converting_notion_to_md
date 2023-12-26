@@ -2,14 +2,15 @@
 from pathlib import Path
 
 from notion_to_md.cli import parse_args
+from notion_to_md.file import File
 
 
 def main(dirpath: Path) -> None:
     for path in dirpath.iterdir():
         if path.suffix == '.md':
-            process_md(path)
+            File.process_md(path)
         elif path.suffix in ('.jpg', '.png'):
-            process_img(path)
+            File.process_img(path)
         elif path.is_dir():
             main(path)
 
@@ -17,7 +18,5 @@ def main(dirpath: Path) -> None:
 if __name__ == '__main__':
     args = parse_args()
     dirpath = args.path
-
-    from notion_to_md.work_with_file.process_ import process_md, process_img
 
     main(Path(dirpath))

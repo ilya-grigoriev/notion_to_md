@@ -2,20 +2,22 @@ import shutil
 from pathlib import Path
 
 from notion_to_md.data import FileInfo
-from notion_to_md.file import File
+from notion_to_md.work_with_file.copy_ import copy_file_by_fileinfo
+from notion_to_md.work_with_file.get_ import get_heading
+from notion_to_md.work_with_file.read_ import read_file
 
 
 def process_md(filepath: Path) -> None:
     dirpath = filepath.parent
-    lines = tuple(line for line in File.read(filepath) if line)
+    lines = tuple(line for line in read_file(filepath) if line)
     fileinfo = FileInfo(dirpath, filepath, '', lines)
 
-    heading = File.get_heading(fileinfo)
+    heading = get_heading(fileinfo)
 
     if heading:
         fileinfo.heading = heading
 
-        File.copy(fileinfo)
+        copy_file_by_fileinfo(fileinfo)
 
         filepath.unlink()
 
