@@ -19,3 +19,8 @@ class FileInfo:
     filepath: Path
     heading: str
     lines: Sequence[str]
+    old_path: str
+
+
+INCORRECT_INTERNAL_FILE_URL = r'%D0[A-Z\d%]+%20'
+INTERNAL_FILE_URL = r'\(([\w\W]+)\)'
