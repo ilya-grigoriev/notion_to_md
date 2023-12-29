@@ -2,17 +2,12 @@
 from pathlib import Path
 
 from notion_to_md.cli import parse_args
-from notion_to_md.file import File
+from notion_to_md.folder import Folder
 
 
 def main(dirpath: Path) -> None:
-    for path in dirpath.iterdir():
-        if path.suffix == '.md':
-            File.process_md(path)
-        elif path.suffix in ('.jpg', '.png'):
-            File.process_img(path)
-        elif path.is_dir():
-            main(path)
+    folder = Folder()
+    folder.process(dirpath)
 
 
 if __name__ == '__main__':
